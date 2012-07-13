@@ -9,17 +9,12 @@
 		<load-on-startup>0</load-on-startup>
 	</servlet>
 	<servlet>
-		<servlet-name>pxmlReq</servlet-name>
-		<servlet-class>com.bluecloud.mvc.web.PageServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet>
 		<servlet-name>fxmlReq</servlet-name>
 		<servlet-class>com.bluecloud.mvc.web.FragmentServlet</servlet-class>
-		<load-on-startup>2</load-on-startup>
+		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>pxmlReq</servlet-name>
+		<servlet-name>domain</servlet-name>
 		<url-pattern>*.pxml</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>

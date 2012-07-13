@@ -15,7 +15,7 @@ public final class DomainConfig {
 
 	private static final String WEBINF="/WEB-INF";
 	private static final String CONF=WEBINF.concat("/conf");
-	private static final String CLAZZES=WEBINF.concat("/classes");
+	private static final String PAGES=WEBINF.concat("/pages");
 	/**
 	 * @param config
 	 * 

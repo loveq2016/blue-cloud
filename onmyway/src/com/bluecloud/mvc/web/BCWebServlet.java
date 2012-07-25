@@ -14,14 +14,21 @@ import javax.servlet.http.HttpServletResponse;
  * @author leo
  *
  */
-public class FragmentServlet extends HttpServlet {
+public class BCWebServlet extends HttpServlet {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6121738819477670441L;
+	
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse res)
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		this.doGet(req, resp);
+	}
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
 	}

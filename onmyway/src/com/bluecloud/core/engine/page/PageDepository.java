@@ -39,9 +39,7 @@ public class PageDepository {
 	 */
 	public HtmlPage getPage(String pxmlPath) {
 		HtmlPage htmlPage=htmlPages.get(pxmlPath);
-		if(htmlPage!=null){
-			
-		}else{
+		if(htmlPage==null){
 			htmlPage=new DefualtHtmlPage();
 		}
 		return htmlPage;

@@ -14,7 +14,7 @@ import com.bluesky.logging.LogFactory;
  */
 public final class BlueCloud {
 	private static Log log=LogFactory.getLog(BlueCloud.class);
-	public static void bootstrap(ComponentFactory componentFac,
+	public static void bootstrap(ComponentFactory componentFact,
 			DomainConfig domainConfig) {
 	}
 }

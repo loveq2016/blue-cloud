@@ -54,7 +54,7 @@ public class DomainServlet extends HttpServlet {
 			}
 			BlueCloud.bootstrap(componentFac, domainConfig);
 			if (log.isInfoEnabled()) {
-				log.info("开始启动成功");
+				log.info("服务器启动成功");
 			}
 		} catch (KernelSourceException e) {
 			log.error("服务器启动失败", e);

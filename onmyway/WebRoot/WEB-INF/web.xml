@@ -10,7 +10,7 @@
 	</servlet>
 	<servlet>
 		<servlet-name>fxmlReq</servlet-name>
-		<servlet-class>com.bluecloud.mvc.web.FragmentServlet</servlet-class>
+		<servlet-class>com.bluecloud.mvc.web.BCWebServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>

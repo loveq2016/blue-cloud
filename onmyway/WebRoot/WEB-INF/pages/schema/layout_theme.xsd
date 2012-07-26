@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 被2011 rel. 2 sp1 (TeaM DJiNN) 使用XMLSpy vTeaM DJiNN编辑的 (http://www.altova.com) by -->
+<!-- edited with XMLSpy v2009 (http://www.altova.com) by xgxy981 (EMBRACE) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="html">
+		<xs:complexType>
+			<xs:sequence maxOccurs="unbounded">
+				<xs:element name="theme">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="head">
+								<xs:complexType>
+									<xs:attribute name="id" use="required"/>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="navigation">
+								<xs:complexType>
+									<xs:attribute name="id" use="required"/>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="footer">
+								<xs:complexType>
+									<xs:attribute name="id" use="required"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="id" use="required">
+							<xs:annotation>
+								<xs:documentation>主题的唯一标识</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

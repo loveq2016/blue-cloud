@@ -3,12 +3,9 @@
  */
 package com.bluecloud.test;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import com.bluecloud.mvc.external.FragmentEvent;
 import com.bluecloud.mvc.external.FragmentEventRegister;
 import com.bluecloud.mvc.external.HtmlFragment;
+import com.bluecloud.mvc.web.http.HtmlFragmentRequest;
 import com.bluecloud.mvc.web.http.HtmlFragmentResponse;
 
 /**
@@ -17,13 +14,6 @@ import com.bluecloud.mvc.web.http.HtmlFragmentResponse;
  */
 public class BCWebFragmentTest extends HtmlFragment{
 
-	
-	/**
-	 * 
-	 */
-	public BCWebFragmentTest() {
-	}
-
 	@Override
 	protected FragmentEventRegister regEvent() {
 		FragmentEventRegister reg=new FragmentEventRegister();
@@ -31,8 +21,10 @@ public class BCWebFragmentTest extends HtmlFragment{
 		return reg;
 	}
 
+
 	@Override
-	public HtmlFragmentResponse init() {
+	public HtmlFragmentResponse init(HtmlFragmentRequest request) {
+		this.getResponse();
 		return null;
 	}
 

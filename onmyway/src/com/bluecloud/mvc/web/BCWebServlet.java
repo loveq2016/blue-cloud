@@ -17,6 +17,7 @@ import com.bluecloud.mvc.core.BCWeb;
 import com.bluecloud.mvc.external.FragmentEventRegister;
 import com.bluecloud.mvc.external.HtmlFragment;
 import com.bluecloud.mvc.external.HtmlFragmentRegister;
+import com.bluecloud.mvc.web.http.ResponseData;
 
 /**
  * @author leo
@@ -38,13 +39,22 @@ public class BCWebServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		if(!BCWeb.isStart()){
+			throw new ServletException(BCWeb.getStartInfo());
+		}
 		HttpFragmentHandler fragmentHandler=BCWeb.createHtmlFragmentHandler(req,resp);
 		HtmlFragmentDepository depository=BCWeb.getFragmentDepository();
 		String fragmentName=fragmentHandler.getRequestFragment();
 		HtmlFragmentRegister register=depository.getHtmlFragment(fragmentName);
 		HtmlFragment fragment=register.getFragment();
 		FragmentEventRegister eventRegister=register.getEventRegister();
-		fragmentHandler.service(fragment,eventRegister);
+		ResponseData respData=fragmentHandler.service(fragment,eventRegister);
+		String dispatch=respData.getDispatch();
+		if(null!=dispatch&&!dispatch.equals("")){
+			
+		}else{
+			
+		}
 	}
 	
 	@Override

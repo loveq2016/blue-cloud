@@ -3,11 +3,9 @@
  */
 package com.bluecloud.mvc.api;
 
-import java.util.Set;
-
-import com.bluecloud.mvc.external.FragmentEvent;
 import com.bluecloud.mvc.external.FragmentEventRegister;
 import com.bluecloud.mvc.external.HtmlFragment;
+import com.bluecloud.mvc.web.http.ResponseData;
 
 /**
  * @author leo
@@ -19,8 +17,9 @@ public interface HttpFragmentHandler {
 	 * 
 	 * @param fragment
 	 * @param eventRegister
+	 * @return 
 	 */
-	void service(HtmlFragment fragment, FragmentEventRegister eventRegister);
+	ResponseData service(HtmlFragment fragment, FragmentEventRegister eventRegister);
 
 	/**
 	 * 获得请求的fragment标识，即http://ip:port/context/servletpath=fragment标识

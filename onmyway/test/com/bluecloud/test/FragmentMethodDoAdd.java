@@ -20,6 +20,7 @@ public class FragmentMethodDoAdd extends FragmentEvent {
 
 	public HtmlFragmentResponse execute(HtmlFragmentRequest req,HtmlFragment fragment) {
 		HtmlFragmentResponse res=fragment.getResponse();
+		res.addView("sss");
 		return res;
 	}
 

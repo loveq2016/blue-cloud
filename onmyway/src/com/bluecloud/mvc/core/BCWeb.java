@@ -19,9 +19,9 @@ import com.bluecloud.mvc.web.http.HtmlFragmentResponse;
  */
 public final class BCWeb {
 
-	private static HttpServletResponse response;
 	private static HtmlFragmentDepository fragDepository;
 	private static boolean isStart = false;
+	private static Exception info;
 
 	public static HttpFragmentHandler createHtmlFragmentHandler(
 			HttpServletRequest req, HttpServletResponse resp) {
@@ -34,17 +34,37 @@ public final class BCWeb {
 		return fragDepository;
 	}
 
+	/**
+	 * 
+	 */
 	public static void start() {
-		if (isStart) {
+		if (isStart()) {
 			return;
 		}
 		fragDepository = new HtmlFragmentDepositoryImpl();
 		try {
 			fragDepository.load(Thread.currentThread().getContextClassLoader());
+			isStart = true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			info=e;
 		}
-		isStart = true;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public static boolean isStart() {
+		return isStart;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public static Exception getStartInfo() {
+		return info;
 	}
 
 }

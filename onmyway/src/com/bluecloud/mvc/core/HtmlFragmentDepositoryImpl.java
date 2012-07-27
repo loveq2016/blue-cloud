@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.bluecloud.mvc.api.HtmlFragmentDepository;
+import com.bluecloud.mvc.external.HtmlFragment;
 import com.bluecloud.mvc.external.HtmlFragmentRegister;
 
 /**
@@ -40,6 +41,8 @@ final class HtmlFragmentDepositoryImpl implements HtmlFragmentDepository {
 	public void load(ClassLoader classLoader) throws Exception {
 		HtmlFragmentRegister fragmentReg = new HtmlFragmentRegister();
 		Class<?> clazz=classLoader.loadClass("com.bluecloud.test.BCWebFragmentTest");
+		HtmlFragment fragment=(HtmlFragment) clazz.newInstance();
+		fragmentReg.add(fragment);
 		fragments.put(clazz.getSimpleName().toLowerCase(), fragmentReg);
 	}
 

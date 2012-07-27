@@ -13,8 +13,12 @@ public final class BCWebRequest implements HtmlFragmentRequest {
 
 	private HttpServletRequest req;
 
+	private RequestData reqData;
+
 	public BCWebRequest(HttpServletRequest req) {
 		this.req = req;
+		reqData = new RequestData();
+		reqData.parse(this);
 	}
 
 	/*
@@ -25,7 +29,7 @@ public final class BCWebRequest implements HtmlFragmentRequest {
 	@Override
 	public String getName() {
 		String sp = req.getServletPath();
-		return sp;
+		return sp.substring(0, sp.indexOf("."));
 	}
 
 	@Override

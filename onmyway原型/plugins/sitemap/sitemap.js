@@ -35,7 +35,7 @@
 
             $('#sitemapLinksPageName').html('Links to ' + $('.sitemapHighlight > .sitemapPageName').html());
 
-            var playerLoc = $(location).attr('href').split("#")[0].split("?")[0];
+            var playerLoc = $(location).attr('href').split("#")[0];
             var qString = "?Page=" + nodeUrl.substr(0, nodeUrl.lastIndexOf('.'));
             $('#sitemapLinkWithPlayer').val(playerLoc + qString);
             $('#sitemapLinkWithoutPlayer').val(pageLoc);

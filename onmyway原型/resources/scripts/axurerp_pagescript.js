@@ -1191,7 +1191,7 @@ function GetWidgetCurrentState(id) {
 
 function SetLinkStyle(id, parentId, styleName) {
     var style = GetStyleOverridesForState(id, parentId, styleName);
-    if ($.isEmptyObject(style)) return;
+    if (!style || $.isEmptyObject(style)) return;
     
     var cssProps = GetCssStyleProperties(style);
     var textId = GetTextIdFromLink(id);
@@ -1246,7 +1246,7 @@ function SetLinkNotMouseDown(id) {
     ResetLinkStyle(id);
     
     var style = GetStyleOverridesForState(id, $axure.eventManager.mouseOverObjectId, "mouseOver");
-    if(!$.isEmptyObject(style)) {
+    if (style) {
         SetLinkHover(id);
     } // we dont do anything here bocause the widget not mouse down has taken over here
 }
@@ -1263,9 +1263,8 @@ function SetWidgetMouseDown(id, bringFront) {
 
 function SetWidgetNotMouseDown(id, bringFront) {
     if (IsWidgetSelected(id) || IsWidgetDisabled(id)) { return; }
-    var widgetObject = $axure.pageData.scriptIdToObject[id];
-    var hasMouseOver = widgetObject && widgetObject.style && widgetObject.style.stateStyles && widgetObject.style.stateStyles.mouseOver;
-    if(hasMouseOver) {
+    var style = GetStyleOverridesForState(id, null, 'mouseOver');
+    if (style) {
         SetWidgetHover(id, bringFront);
     } else {
         SetWidgetOriginal(id, bringFront);
@@ -1277,29 +1276,18 @@ var gv_SelectedWidgets = new Object();
 function SetWidgetSelected(id) {
     var group = $('#' + id).attr('selectiongroup');
     if (group) {
-        $("[selectiongroup='" + group + "'][visibility!='hidden']").each(function (i, obj) {
+        $("[selectiongroup='" + group + "'][visibility!='hidden']").each(function (i,obj) {
             SetWidgetNotSelected($(obj).attr('id'));
         });
     }
 
-    var widgetObject = $axure.pageData.scriptIdToObject[id];
-    if (widgetObject) {
-        while (widgetObject.isContained) widgetObject = widgetObject.parent;
-        var hasSelected = widgetObject && widgetObject.style && widgetObject.style.stateStyles && widgetObject.style.stateStyles.selected;
-        if (hasSelected) ApplyImageAndTextJson(id, 'selected', false, false);
-    }
-    
+    ApplyImageAndTextJson(id, 'selected', false, false);
     gv_SelectedWidgets[id] = 'true';
 }
 
 function SetWidgetNotSelected(id) {
-    var widgetObject = $axure.pageData.scriptIdToObject[id];
-    if (widgetObject) {
-        while (widgetObject.isContained) widgetObject = widgetObject.parent;
-        var hasSelected = widgetObject && widgetObject.style && widgetObject.style.stateStyles && widgetObject.style.stateStyles.selected;
-        if (hasSelected) SetWidgetOriginal(id, false);
-    }
-    
+    SetWidgetOriginal(id, false);
+
     gv_SelectedWidgets[id] = 'false';
 }
 
@@ -1358,9 +1346,9 @@ function ApplyImageAndTextJson(id, event, bringToFront, isOriginal) {
             $('#' + id + '_img').trigger(event);
         }
         var style = GetStyleOverridesForState(id, null, event);
-        ApplyImageStyle(id, event, style);
-        if(!$.isEmptyObject(style)) {
-            var cssStylePropsToApply = GetCssStyleProperties(style);
+        if (style) {
+            var cssStylePropsToApply = GetCssStyleProperties(style);            
+            ApplyImageStyle(id, event, style);
             ApplyTextStyle(textid, cssStylePropsToApply);
         }
     }

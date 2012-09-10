@@ -47,4 +47,9 @@ public abstract class HtmlFragment {
 		return this.response;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
+	protected abstract String getName();
 }

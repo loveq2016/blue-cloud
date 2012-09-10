@@ -36,7 +36,7 @@ public class Test {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		HtmlFragmentRequest req=new BCWebRequest(null);
+		HtmlFragmentRequest req=new BCWebRequest(null,null);
 		HtmlFragmentResponse  res=new BCWebResponse(null);
 		new Test(res, req);
 	}

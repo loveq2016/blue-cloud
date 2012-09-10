@@ -3,6 +3,7 @@
  */
 package com.bluecloud.mvc.core;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,10 +23,11 @@ public final class BCWeb {
 	private static HtmlFragmentDepository fragDepository;
 	private static boolean isStart = false;
 	private static Exception info;
+	private static ServletConfig conf;
 
 	public static HttpFragmentHandler createHtmlFragmentHandler(
 			HttpServletRequest req, HttpServletResponse resp) {
-		HtmlFragmentRequest request = new BCWebRequest(req);
+		HtmlFragmentRequest request = new BCWebRequest(req,conf);
 		HtmlFragmentResponse response = new BCWebResponse(resp);
 		return new HtmlFragmentHandlerImpl(request, response);
 	}
@@ -35,15 +37,24 @@ public final class BCWeb {
 	}
 
 	/**
+	 * @param config 
 	 * 
 	 */
-	public static void start() {
+	public static void start(ServletConfig config) {
 		if (isStart()) {
 			return;
 		}
 		fragDepository = new HtmlFragmentDepositoryImpl();
 		try {
-			fragDepository.load(Thread.currentThread().getContextClassLoader());
+			if(config==null){
+				throw new Exception("web.xml中没有配置BCWebServlet的初始化参数name");
+			}
+			String name=config.getInitParameter("name");
+			if(name==null||name.trim().equals("")){
+				throw new Exception("web.xml中没有配置BCWebServlet的初始化参数name");
+			}
+			conf=config;
+			fragDepository.load(fragDepository.getClass().getClassLoader());
 			isStart = true;
 		} catch (Exception e) {
 			e.printStackTrace();

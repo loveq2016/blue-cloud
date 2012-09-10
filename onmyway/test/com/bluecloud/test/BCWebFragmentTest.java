@@ -28,4 +28,10 @@ public class BCWebFragmentTest extends HtmlFragment{
 		return null;
 	}
 
+
+	@Override
+	protected String getName() {
+		return "test";
+	}
+
 }

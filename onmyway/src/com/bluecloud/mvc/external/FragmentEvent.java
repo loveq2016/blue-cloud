@@ -17,7 +17,14 @@ public abstract class FragmentEvent {
 		this.name=name;
 	}
 
-	public abstract HtmlFragmentResponse execute(HtmlFragmentRequest req,HtmlFragment fragment);
+	/**
+	 * 
+	 * @param req
+	 * @param fragment
+	 * @return
+	 * @throws Exception
+	 */
+	public abstract HtmlFragmentResponse execute(HtmlFragmentRequest req,HtmlFragment fragment) throws Exception;
 	
 	@Override
 	public String toString() {

@@ -3,8 +3,12 @@
  */
 package com.bluecloud.mvc.web.http;
 
+import java.util.Map;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
+
+import com.bluecloud.mvc.external.bean.FragmentBean;
 
 /**
  * @author leo
@@ -20,7 +24,8 @@ public final class BCWebRequest implements HtmlFragmentRequest {
 
 	public BCWebRequest(HttpServletRequest req, ServletConfig conf) {
 		this.req = req;
-		this.submitName=conf.getInitParameter("name");
+		String name=conf.getInitParameter("name");
+		this.submitName=req.getParameter(name);
 		reqData = new RequestData();
 		reqData.parse(this);
 	}
@@ -36,10 +41,40 @@ public final class BCWebRequest implements HtmlFragmentRequest {
 		return sp.substring(0, sp.indexOf("."));
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.bluecloud.mvc.web.http.HtmlFragmentRequest#getSubmit()
+	 */
 	@Override
 	public String getSubmit() {
-		String submit=req.getParameter(this.submitName);
+		return submitName;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.bluecloud.mvc.web.http.HtmlFragmentRequest#getHttpServletRequest()
+	 */
+	@Override
+	public HttpServletRequest getHttpServletRequest() {
+		return this.req;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.bluecloud.mvc.web.http.HtmlFragmentRequest#getForm(java.lang.String)
+	 */
+	@Override
+	public FragmentBean getForm(String beanName) {
+		Map<String,String> formData=reqData.getFormData(beanName);
 		return null;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.bluecloud.mvc.web.http.HtmlFragmentRequest#getReqData()
+	 */
+	@Override
+	public RequestData getReqData() {
+		return reqData;
+	}
 }

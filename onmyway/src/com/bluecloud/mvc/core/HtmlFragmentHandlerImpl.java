@@ -38,14 +38,11 @@ final class HtmlFragmentHandlerImpl implements HttpFragmentHandler {
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.bluecloud.mvc.api.HttpFragmentHandler#service(com.bluecloud.mvc.external
-	 * .HtmlFragment, com.bluecloud.mvc.external.FragmentEventRegister)
+	 * @see com.bluecloud.mvc.api.HttpFragmentHandler#service(com.bluecloud.mvc.external.HtmlFragment, com.bluecloud.mvc.external.FragmentEventRegister)
 	 */
 	@Override
-	public ResponseData service(HtmlFragment fragment,
-			FragmentEventRegister eventRegister) {
+	public void service(HtmlFragment fragment,
+			FragmentEventRegister eventRegister) throws Exception {
 		String eventName = request.getSubmit();
 		FragmentEvent event = eventRegister.find(eventName);
 		fragment.setResponse(response);
@@ -54,7 +51,17 @@ final class HtmlFragmentHandlerImpl implements HttpFragmentHandler {
 		} else {
 			event.execute(request, fragment);
 		}
-		return response.getData();
+		ResponseData respData=response.getData();
+		try {
+			String dispatch=respData.getDispatch();
+			if(null!=dispatch&&!dispatch.trim().equals("")){
+				
+			}else{
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

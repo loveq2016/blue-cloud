@@ -5,6 +5,8 @@ package com.bluecloud.mvc.core;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.net.JarURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -22,6 +24,8 @@ import java.util.jar.JarFile;
 import com.bluecloud.mvc.api.HtmlFragmentDepository;
 import com.bluecloud.mvc.external.HtmlFragment;
 import com.bluecloud.mvc.external.HtmlFragmentRegister;
+import com.bluesky.logging.Log;
+import com.bluesky.logging.LogFactory;
 
 /**
  * @author leo
@@ -29,6 +33,7 @@ import com.bluecloud.mvc.external.HtmlFragmentRegister;
  */
 final class HtmlFragmentDepositoryImpl implements HtmlFragmentDepository {
 
+	private Log log=LogFactory.getLog(HtmlFragmentDepositoryImpl.class);
 	private static final String CLASS_SUFFIX = ".class";
 	private static final String JAR_SUFFIX = ".jar";
 	private static final String ZIP_SUFFIX = ".zip";
@@ -46,6 +51,9 @@ final class HtmlFragmentDepositoryImpl implements HtmlFragmentDepository {
 	 */
 	@Override
 	public HtmlFragmentRegister getHtmlFragment(String fragmentName) {
+		if(fragmentName.startsWith("/")||fragmentName.startsWith("\\")){
+			fragmentName=fragmentName.substring(1);
+		}
 		Class<?> fragmentClass=fragments.get(fragmentName);
 		if(null==fragmentClass){
 			return null;
@@ -127,8 +135,12 @@ final class HtmlFragmentDepositoryImpl implements HtmlFragmentDepository {
 			while (iter.hasMoreElements()) {
 				JarEntry entry = (JarEntry) iter.nextElement();
 				String name = entry.getName();
-				if (name.indexOf("$") == -1) {
-					String className = name.substring(0, name.lastIndexOf(46)).replace('/', '.');//46='.'
+				int i=name.lastIndexOf(46);
+				if(i==-1){
+					continue;
+				}
+				String className = name.substring(0,i).replace('/', '.');//46='.'
+				if (name.indexOf("$") == -1&&className.toLowerCase().endsWith(CLASS_SUFFIX)) {
 					register(className, classLoader);
 				}
 			}
@@ -228,13 +240,25 @@ final class HtmlFragmentDepositoryImpl implements HtmlFragmentDepository {
 	 */
 	private void register(String className, ClassLoader classLoader) throws Exception {
 		Class<?> localClass = classLoader.loadClass(className);
-		if (HtmlFragment.class.isAssignableFrom(localClass)) {
+		boolean isAbstract=Modifier.isAbstract(localClass.getModifiers());
+		boolean isAssignableFrom=HtmlFragment.class.isAssignableFrom(localClass);
+		if (isAssignableFrom&&!isAbstract) {
 			Object framentObj=localClass.newInstance();
-			Object key=localClass.getMethod("getName", String.class).invoke(framentObj, (Object[]) null);
+			Method[] methods=localClass.getMethods();
+			Object key = null;
+			for(Method method:methods){
+				if(method.getName().equals("getName")){
+					key=method.invoke(framentObj, (Object[]) null);
+				}
+			}
 			if(key!=null&&!key.toString().trim().equals("")){
 				fragments.put(key.toString(), localClass);
 			}else{
-				fragments.put(localClass.getSimpleName(), localClass);
+				key=localClass.getSimpleName();
+				fragments.put(key.toString(), localClass);
+			}
+			if(log.isDebugEnabled()){
+				log.debug("加载fxml："+key);
 			}
 		}
 	}

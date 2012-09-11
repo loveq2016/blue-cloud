@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 public final class BCWebResponse implements HtmlFragmentResponse {
 
-	private HttpServletResponse resp;
+	private HttpServletResponse res;
 	private ResponseData responseData;
 	private String dispatch;
 
-	public BCWebResponse(HttpServletResponse resp) {
-		this.resp = resp;
+	public BCWebResponse(HttpServletResponse res) {
+		this.res = res;
 		responseData = new ResponseData();
 	}
 

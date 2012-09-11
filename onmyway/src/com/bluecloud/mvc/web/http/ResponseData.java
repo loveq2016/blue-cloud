@@ -15,7 +15,7 @@ public final class ResponseData {
 	}
 
 	public String getDispatch() {
-		return this.dispatch.trim();
+		return this.dispatch;
 	}
 
 	protected void parse(BCWebResponse bcWebResponse) {

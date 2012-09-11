@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.bluecloud.mvc.api.HtmlFragmentDepository;
 import com.bluecloud.mvc.api.HttpFragmentHandler;
 import com.bluecloud.mvc.core.BCWeb;
-import com.bluecloud.mvc.external.FragmentEventRegister;
 import com.bluecloud.mvc.external.HtmlFragment;
-import com.bluecloud.mvc.external.HtmlFragmentRegister;
+import com.bluecloud.mvc.web.http.HtmlFragmentDispatcher;
+import com.bluecloud.mvc.web.http.ResponseData;
 
 /**
  * @author leo
@@ -44,16 +44,24 @@ public class BCWebServlet extends HttpServlet {
 		HttpFragmentHandler fragmentHandler=BCWeb.createHtmlFragmentHandler(req,res);
 		HtmlFragmentDepository depository=BCWeb.getFragmentDepository();
 		String fragmentName=fragmentHandler.getRequestFragment();
-		HtmlFragmentRegister register=depository.getHtmlFragment(fragmentName);
-		HtmlFragment fragment=register.getFragment();
-		FragmentEventRegister eventRegister=register.getEventRegister();
+		HtmlFragment fragment=depository.getHtmlFragment(fragmentName);
 		try {
-			fragmentHandler.service(fragment, eventRegister);
+			ResponseData resData=fragmentHandler.service(fragment);
+			HtmlFragmentDispatcher dispatch = resData.getDispatch();
+			if (null != dispatch) {
+				dispatch.exce();
+			} else {
+				
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/*
+	 * (non-Javadoc)
+	 * @see javax.servlet.GenericServlet#init(javax.servlet.ServletConfig)
+	 */
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);

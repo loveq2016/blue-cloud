@@ -27,9 +27,19 @@ public final class BCWeb {
 
 	public static HttpFragmentHandler createHtmlFragmentHandler(
 			HttpServletRequest req, HttpServletResponse resp) {
+		HttpFragmentHandler handler=null;
 		HtmlFragmentRequest request = new BCWebRequest(req,conf);
 		HtmlFragmentResponse response = new BCWebResponse(resp);
-		return new HtmlFragmentHandlerImpl(request, response);
+		String reqType=req.getParameter("reqType");
+		if(reqType!=null){
+			reqType=reqType.trim();
+			if(reqType.equals("ajax")){
+				handler=new AjaxHandler(request, response);
+			}
+		}else{
+			
+		}
+		return handler;
 	}
 
 	public static HtmlFragmentDepository getFragmentDepository() {

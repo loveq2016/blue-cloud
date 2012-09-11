@@ -19,6 +19,12 @@ public interface HtmlFragmentResponse {
 	 * 
 	 * @param path
 	 */
-	void addView(String path);
+	void send(String path);
+
+	/**
+	 * 
+	 * @param path
+	 */
+	void forward(String path);
 
 }

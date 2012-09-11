@@ -3,6 +3,7 @@
  */
 package com.bluecloud.mvc.external;
 
+import com.bluecloud.mvc.exception.HtmlFragmentException;
 import com.bluecloud.mvc.web.http.HtmlFragmentRequest;
 import com.bluecloud.mvc.web.http.HtmlFragmentResponse;
 
@@ -34,7 +35,7 @@ public abstract class HtmlFragment {
 	 * @param request
 	 * @return
 	 */
-	public abstract HtmlFragmentResponse init(HtmlFragmentRequest request);
+	public abstract HtmlFragmentResponse init(HtmlFragmentRequest request)throws HtmlFragmentException;
 
 	/**
 	 * 
@@ -57,4 +58,18 @@ public abstract class HtmlFragment {
 	 * @return
 	 */
 	public abstract String getName();
+
+	/**
+	 * 
+	 * @param eventName
+	 * @return
+	 */
+	public FragmentEvent getEvent(String eventName) {
+		FragmentEventRegister reg=regEvent();
+		FragmentEvent event = null;
+		if(null!=reg){
+			event=reg.find(eventName);
+		}
+		return event;
+	}
 }

@@ -23,7 +23,6 @@ import java.util.jar.JarFile;
 
 import com.bluecloud.mvc.api.HtmlFragmentDepository;
 import com.bluecloud.mvc.external.HtmlFragment;
-import com.bluecloud.mvc.external.HtmlFragmentRegister;
 import com.bluesky.logging.Log;
 import com.bluesky.logging.LogFactory;
 
@@ -42,15 +41,13 @@ final class HtmlFragmentDepositoryImpl implements HtmlFragmentDepository {
 	public HtmlFragmentDepositoryImpl() {
 		fragments=new HashMap<String,Class<?>>();
 	}
+	
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.bluecloud.mvc.api.HtmlFragmentDepository#getHtmlFragment(java.lang
-	 * .String)
+	 * @see com.bluecloud.mvc.api.HtmlFragmentDepository#getHtmlFragment(java.lang.String)
 	 */
 	@Override
-	public HtmlFragmentRegister getHtmlFragment(String fragmentName) {
+	public HtmlFragment getHtmlFragment(String fragmentName) {
 		if(fragmentName.startsWith("/")||fragmentName.startsWith("\\")){
 			fragmentName=fragmentName.substring(1);
 		}
@@ -58,17 +55,15 @@ final class HtmlFragmentDepositoryImpl implements HtmlFragmentDepository {
 		if(null==fragmentClass){
 			return null;
 		}
-		HtmlFragmentRegister reg = null;
+		HtmlFragment fragment = null;
 		try {
-			HtmlFragment fragment = (HtmlFragment) fragmentClass.newInstance();
-			reg=new HtmlFragmentRegister();
-			reg.add(fragment);
+			fragment = (HtmlFragment) fragmentClass.newInstance();
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		return  reg;
+		return  fragment;
 	}
 
 	/*
@@ -131,17 +126,17 @@ final class HtmlFragmentDepositoryImpl implements HtmlFragmentDepository {
 			JarURLConnection jarConn = (JarURLConnection) conn;
 			jarConn.setUseCaches(false);
 			jarFile = jarConn.getJarFile();
-			Enumeration<JarEntry> iter = jarFile.entries();
-			while (iter.hasMoreElements()) {
-				JarEntry entry = (JarEntry) iter.nextElement();
-				String name = entry.getName();
-				int i=name.lastIndexOf(46);
-				if(i==-1){
-					continue;
-				}
-				String className = name.substring(0,i).replace('/', '.');//46='.'
-				if (name.indexOf("$") == -1&&className.toLowerCase().endsWith(CLASS_SUFFIX)) {
-					register(className, classLoader);
+			JarEntry je=jarFile.getJarEntry("META-INF/fxml.conf");
+			if(je!=null){
+				Enumeration<JarEntry> iter = jarFile.entries();
+				while (iter.hasMoreElements()) {
+					JarEntry entry = (JarEntry) iter.nextElement();
+					String name = entry.getName();
+					if(name.indexOf("$") == -1&&name.endsWith(CLASS_SUFFIX)){
+						int i=name.lastIndexOf(46);
+						String className = name.substring(0,i).replace('/', '.');//46='.'
+						register(className, classLoader);
+					}
 				}
 			}
 		}

@@ -3,7 +3,7 @@
  */
 package com.bluecloud.mvc.api;
 
-import com.bluecloud.mvc.external.HtmlFragmentRegister;
+import com.bluecloud.mvc.external.HtmlFragment;
 
 /**
  * @author leo
@@ -16,7 +16,7 @@ public interface HtmlFragmentDepository {
 	 * @param fragmentName
 	 * @return
 	 */
-	HtmlFragmentRegister getHtmlFragment(String fragmentName);
+	HtmlFragment getHtmlFragment(String fragmentName);
 
 	void load(ClassLoader classLoader) throws Exception;
 

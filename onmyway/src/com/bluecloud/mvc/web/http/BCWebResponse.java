@@ -5,6 +5,9 @@ package com.bluecloud.mvc.web.http;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.bluecloud.mvc.web.dispatch.FramgmentForward;
+import com.bluecloud.mvc.web.dispatch.FramgmentSend;
+
 /**
  * @author leo
  * 
@@ -13,7 +16,7 @@ public final class BCWebResponse implements HtmlFragmentResponse {
 
 	private HttpServletResponse res;
 	private ResponseData responseData;
-	private String dispatch;
+	private HtmlFragmentDispatcher dispatcher;
 
 	public BCWebResponse(HttpServletResponse res) {
 		this.res = res;
@@ -33,21 +36,27 @@ public final class BCWebResponse implements HtmlFragmentResponse {
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.bluecloud.mvc.web.http.HtmlFragmentResponse#addView(java.lang.String)
+	 * @see com.bluecloud.mvc.web.http.HtmlFragmentResponse#forward(java.lang.String)
 	 */
 	@Override
-	public void addView(String path) {
-		this.dispatch = path;
+	public void forward(String path) {
+		dispatcher=new FramgmentForward(res,path);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.bluecloud.mvc.web.http.HtmlFragmentResponse#send(java.lang.String)
+	 */
+	@Override
+	public void send(String path) {
+		dispatcher=new FramgmentSend(res,path);
 	}
 
 	/**
 	 * 
 	 * @return
 	 */
-	public String getView() {
-		return this.dispatch;
+	public HtmlFragmentDispatcher getDispatch() {
+		return dispatcher;
 	}
-
 }

@@ -3,6 +3,7 @@
  */
 package com.bluecloud.mvc.external;
 
+import com.bluecloud.mvc.exception.FragmentEventException;
 import com.bluecloud.mvc.web.http.HtmlFragmentRequest;
 import com.bluecloud.mvc.web.http.HtmlFragmentResponse;
 
@@ -24,7 +25,7 @@ public abstract class FragmentEvent {
 	 * @return
 	 * @throws Exception
 	 */
-	public abstract HtmlFragmentResponse execute(HtmlFragmentRequest req,HtmlFragment fragment) throws Exception;
+	public abstract HtmlFragmentResponse execute(HtmlFragmentRequest req,HtmlFragment fragment) throws FragmentEventException;
 	
 	@Override
 	public String toString() {

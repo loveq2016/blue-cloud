@@ -9,25 +9,25 @@ package com.bluecloud.mvc.web.http;
  */
 public final class ResponseData {
 
-	private String dispatch;
+	private HtmlFragmentDispatcher dispatch;
 
 	protected ResponseData() {
 	}
 
-	public String getDispatch() {
+	public HtmlFragmentDispatcher getDispatch() {
 		return this.dispatch;
 	}
 
 	protected void parse(BCWebResponse bcWebResponse) {
-		this.setDispatch(bcWebResponse.getView());
+		this.setDispatch(bcWebResponse.getDispatch());
 	}
 
 	/**
 	 * 
-	 * @param dispatch
+	 * @param htmlFragmentDispatcher
 	 */
-	private void setDispatch(String dispatch) {
-		this.dispatch = dispatch;
+	private void setDispatch(HtmlFragmentDispatcher htmlFragmentDispatcher) {
+		this.dispatch = htmlFragmentDispatcher;
 	}
 
 }

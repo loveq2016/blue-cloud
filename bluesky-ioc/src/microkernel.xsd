@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by Hanlu (CSS) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="composite">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element ref="component"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="component">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="componentType">
+					<xs:group ref="componentElements"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:attributeGroup name="globalAttribute">
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="class" type="xs:string"/>
+	</xs:attributeGroup>
+	<xs:group name="componentElements">
+		<xs:sequence>
+			<xs:choice minOccurs="0">
+				<xs:element ref="constructor"/>
+			</xs:choice>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="service"/>
+				<xs:element ref="services"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+	<xs:element name="constructor">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="constructorType">
+					<xs:sequence maxOccurs="unbounded">
+						<xs:element ref="service"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="services">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="servicesType">
+					<xs:sequence maxOccurs="unbounded">
+						<xs:element ref="service"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="service">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="serviceType">
+					<xs:choice>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element ref="entry"/>
+						</xs:choice>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element ref="property"/>
+						</xs:choice>
+					</xs:choice>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="property" type="propertyType"/>
+	<xs:element name="entry">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="entryType">
+					<xs:choice maxOccurs="unbounded">
+						<xs:element ref="property"/>
+					</xs:choice>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="componentType">
+		<xs:attributeGroup ref="globalAttribute"/>
+		<xs:attribute name="scope" type="xs:string" default="singleton"/>
+	</xs:complexType>
+	<xs:complexType name="constructorType">
+		<xs:attribute name="index" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:int">
+					<xs:minInclusive value="0"/>
+					<xs:maxInclusive value="256"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="serviceType">
+		<xs:attributeGroup ref="globalAttribute"/>
+		<xs:attribute name="bind" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="servicesType">
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="type" type="xs:string" use="required"/>
+		<xs:attribute name="size" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:int">
+					<xs:minInclusive value="1"/>
+					<xs:maxInclusive value="256"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="limited" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="propertyType">
+		<xs:attribute name="type" type="xs:string" use="required"/>
+		<xs:attribute name="value" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="entryType"/>
+</xs:schema>

@@ -23,13 +23,14 @@ import org.xml.sax.Attributes;
  * 属性<strong>value</strong>，用来设置属性<strong>class</strong>的初始值或者是属性<strong>bind
  * </strong>的初始值。用于{@code new Class(arg..); }</li>
  * <li>属性<strong>type</strong>，标识属性<strong>value</strong>的类型。支持的类型有：<strong>
- * "String"</strong>、 <strong>"Boolean"</strong>、 <strong>"Byte"</strong>、
- * <strong>"Character"</strong>、 <strong>"Short"</strong>、
- * <strong>"Integer"</strong>、 <strong>"Long"</strong>、
- * <strong>"Double"</strong>、 <strong>"Float"</strong>、
+ * "java.lang.String"</strong>、 <strong>"java.lang.Boolean"</strong>、
+ * <strong>"java.lang.Byte"</strong>、 <strong>"java.lang.Character"</strong>、
+ * <strong>"java.lang.Short"</strong>、 <strong>"java.lang.Integer"</strong>、
+ * <strong>"java.lang.Long"</strong>、 <strong>"java.lang.Double"</strong>、
+ * <strong>"java.lang.Float"</strong>、<strong>"java.math.BigDecimal"</strong>、
  * <strong>"boolean"</strong>、 <strong>"byte"</strong>、 <strong>"char"</strong>、
  * <strong>"short"</strong>、 <strong>"int"</strong>、 <strong>"long"</strong>、
- * <strong>"double"</strong>、 <strong>"float"</strong>、<strong>"BigDecimal"</strong></li>
+ * <strong>"double"</strong>、 <strong>"float"</strong></li>
  * </ul>
  * 
  * @author <a href="mailto:hanlu0808@gmail.com">Hanlu</a>

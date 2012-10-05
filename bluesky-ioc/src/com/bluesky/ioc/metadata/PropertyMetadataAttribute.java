@@ -33,16 +33,15 @@ public class PropertyMetadataAttribute implements Attribute {
 	 * 
 	 */
 	public PropertyMetadataAttribute() {
-		types.put("String", String.class);
-		types.put("Boolean", Boolean.class);
-		types.put("Byte", Byte.class);
-		types.put("Character", Character.class);
-		types.put("Short", Short.class);
-		types.put("Integer", Integer.class);
-		types.put("Long", Long.class);
-		types.put("Double", Double.class);
-		types.put("Float", Float.class);
-		types.put("BigDecimal", BigDecimal.class);
+		types.put(String.class.getName(), String.class);
+		types.put(Boolean.class.getName(), Boolean.class);
+		types.put(Byte.class.getName(), Byte.class);
+		types.put(Character.class.getName(), Character.class);
+		types.put(Short.class.getName(), Short.class);
+		types.put(Integer.class.getName(), Integer.class);
+		types.put(Long.class.getName(), Long.class);
+		types.put(Double.class.getName(), Double.class);
+		types.put(Float.class.getName(), Float.class);
 		types.put("boolean", boolean.class);
 		types.put("byte", byte.class);
 		types.put("char", char.class);
@@ -51,6 +50,7 @@ public class PropertyMetadataAttribute implements Attribute {
 		types.put("long", long.class);
 		types.put("double", double.class);
 		types.put("float", float.class);
+		types.put("BigDecimal", BigDecimal.class);
 	}
 
 	/**

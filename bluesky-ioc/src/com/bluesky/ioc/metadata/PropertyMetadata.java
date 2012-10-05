@@ -29,7 +29,7 @@ import org.xml.sax.Attributes;
  * <strong>"Double"</strong>、 <strong>"Float"</strong>、
  * <strong>"boolean"</strong>、 <strong>"byte"</strong>、 <strong>"char"</strong>、
  * <strong>"short"</strong>、 <strong>"int"</strong>、 <strong>"long"</strong>、
- * <strong>"double"</strong>、 <strong>"float"</strong></li>
+ * <strong>"double"</strong>、 <strong>"float"</strong>、<strong>"BigDecimal"</strong></li>
  * </ul>
  * 
  * @author <a href="mailto:hanlu0808@gmail.com">Hanlu</a>

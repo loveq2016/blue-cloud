@@ -14,6 +14,7 @@
  */
 package com.bluesky.ioc.metadata;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,6 +42,7 @@ public class PropertyMetadataAttribute implements Attribute {
 		types.put("Long", Long.class);
 		types.put("Double", Double.class);
 		types.put("Float", Float.class);
+		types.put("BigDecimal", BigDecimal.class);
 		types.put("boolean", boolean.class);
 		types.put("byte", byte.class);
 		types.put("char", char.class);
@@ -85,6 +87,9 @@ public class PropertyMetadataAttribute implements Attribute {
 		}
 		if(simpleName.equals("Float")){
 			return new Float(value);
+		}
+		if(simpleName.equals("BigDecimal")){
+			return new BigDecimal(value);
 		}
 		if(simpleName.equals("int")){
 			return Integer.parseInt(value);
